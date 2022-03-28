@@ -50,4 +50,20 @@ class ArgumentHandlerServiceTest extends TestCase
         $this->assertSame("Stock data must contain numbers only!", $argumentHandler->getMessage());
     }
 
+    public function test_input_valid_get_stock() {
+        $argumentHandler = new ArgumentHandlerService(2, ["index.php", self::VALID_JSON]);
+        $this->assertSame(
+            [1 => 8, 2 => 4, 3 => 5],
+            $argumentHandler->getStock()
+        );
+    }
+
+    public function test_input_wrong_get_stock_returns_empty_array() {
+        $argumentHandler = new ArgumentHandlerService(2, ["index.php", self::VALID_JSON_WITH_WRONG_DATA]);
+        $this->assertSame(
+            [],
+            $argumentHandler->getStock()
+        );
+    }
+
 }

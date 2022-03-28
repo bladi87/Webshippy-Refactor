@@ -62,7 +62,7 @@ class ArgumentHandlerService
 
     private function isValidStockData(): bool
     {
-        foreach ($this->getStock() as $key => $value) {
+        foreach ($this->stock as $key => $value) {
             if (!is_numeric($key) || !is_numeric($value)) {
                 $this->message = self::ERROR_INVALID_DATA;
                 return false;
@@ -84,7 +84,7 @@ class ArgumentHandlerService
      */
     public function getStock(): array
     {
-        return $this->stock;
+        return $this->valid ? $this->stock : [];
     }
 
 
