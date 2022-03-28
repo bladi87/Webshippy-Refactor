@@ -51,8 +51,8 @@ class ArgumentHandlerService
 
     private function isValidJson(): bool
     {
-        $data = json_decode($this->argumentList[1], true);
-        if (json_last_error() === JSON_ERROR_NONE) {
+        $data = json_decode((string)$this->argumentList[1], true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
             $this->stock = $data;
             return true;
         }

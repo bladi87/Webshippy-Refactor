@@ -31,7 +31,7 @@ class ArgumentHandlerServiceTest extends TestCase
     }
 
     public function test_input_is_not_valid_json() {
-        $argumentHandler = new ArgumentHandlerService(2, ["index.php", "some text"]);
+        $argumentHandler = new ArgumentHandlerService(2, ["index.php", 123]);
         $this->assertFalse($argumentHandler->isValid());
     }
 
