@@ -4,6 +4,10 @@ namespace App\Model;
 
 class Order
 {
+    const LOW = "low";
+    const MEDIUM = "medium";
+    const HIGH = "high";
+
     private int $productId;
     private int $quantity;
     private int $priority;
@@ -50,9 +54,9 @@ class Order
     public function getPriorityAsText(): string
     {
         return match ($this->priority) {
-            1 => 'low',
-            2 => 'medium',
-            default => 'high',
+            1 => self::LOW,
+            2 => self::MEDIUM,
+            default => self::HIGH,
         };
     }
 
