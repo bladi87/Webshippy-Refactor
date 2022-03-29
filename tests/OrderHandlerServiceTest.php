@@ -64,4 +64,37 @@ class OrderHandlerServiceTest extends TestCase
                 'created_at'
             ], $orderHandler->getHeaders());
     }
+
+    public function test_fulfillable_orders_is_array() {
+        $orderHandler = new OrderHandlerService();
+        $this->assertIsArray($orderHandler->getFulfillableOrders(
+            [1 => 8, 2 => 4, 3 => 5]
+        ));
+    }
+
+    public function test_fulfillable_orders_is_array_if_stock_is_empty() {
+        $orderHandler = new OrderHandlerService();
+        $this->assertIsArray($orderHandler->getFulfillableOrders(
+            []
+        ));
+    }
+
+    public function test_fulfillable_orders_1() {
+        $orderHandler = new OrderHandlerService();
+        $this->assertEquals(4, sizeof($orderHandler->getFulfillableOrders(
+            [1 => 4, 2 => 2, 3 => 0]
+        )));
+    }
+
+    public function test_fulfillable_orders_2() {
+        $orderHandler = new OrderHandlerService();
+        $this->assertEquals(8, sizeof($orderHandler->getFulfillableOrders([1 => 6, 2 => 4, 3 => 2])));
+    }
+
+    public function test_fulfillable_orders_3() {
+        $orderHandler = new OrderHandlerService();
+        $this->assertEquals(1, sizeof($orderHandler->getFulfillableOrders(
+            [1 => 1]
+        )));
+    }
 }

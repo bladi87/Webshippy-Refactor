@@ -2,6 +2,7 @@
 
 use App\Service\ArgumentHandlerService;
 use App\Service\OrderHandlerService;
+use App\Service\OutputService;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,8 +11,9 @@ if ($argumentHandlerService->isValid()) {
     $stock = $argumentHandlerService->getStock();
     $fileReaderService = new OrderHandlerService();
     $fileReaderService->sortOrders();
-    $fulfillableOrders = $fileReaderService->getFullfillableOrders($stock);
-
+    $outputService = new OutputService($fileReaderService->getHeaders(), $fileReaderService->getFulfillableOrders($argumentHandlerService->getStock()));
+    $outputService->writeHeader();
+    $outputService->writeData();
 } else {
     echo $argumentHandlerService->getMessage();
 }

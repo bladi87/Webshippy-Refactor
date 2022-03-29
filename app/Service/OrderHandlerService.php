@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Model\Order;
+use JetBrains\PhpStorm\Pure;
+use function PHPUnit\Framework\isEmpty;
 
 class OrderHandlerService
 {
@@ -58,15 +60,19 @@ class OrderHandlerService
         });
     }
 
-    public function getFullfillableOrders(array $stock): array
+    public function getFulfillableOrders(array $stock): array
     {
-        $fullfillableOrders = [];
+        $fulfillableOrders = [];
+        if (empty($stock)) {
+            return $fulfillableOrders;
+        }
+        /** @var Order $order */
         foreach ($this->orders as $order) {
-            if ($stock[$order->getId()] >= $order->getQuantity()) {
-                $fullfillableOrders[] = $order;
+            if (array_key_exists($order->getProductId(), $stock) && $stock[$order->getProductId()] >= $order->getQuantity()) {
+                $fulfillableOrders[] = $order;
             }
         }
-        return $fullfillableOrders;
+        return $fulfillableOrders;
     }
 
 }

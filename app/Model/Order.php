@@ -32,27 +32,11 @@ class Order
     }
 
     /**
-     * @param int $productId
-     */
-    public function setProductId(int $productId): void
-    {
-        $this->productId = $productId;
-    }
-
-    /**
      * @return int
      */
     public function getQuantity(): int
     {
         return $this->quantity;
-    }
-
-    /**
-     * @param int $quantity
-     */
-    public function setQuantity(int $quantity): void
-    {
-        $this->quantity = $quantity;
     }
 
     /**
@@ -63,12 +47,13 @@ class Order
         return $this->priority;
     }
 
-    /**
-     * @param int $priority
-     */
-    public function setPriority(int $priority): void
+    public function getPriorityAsText(): string
     {
-        $this->priority = $priority;
+        return match ($this->priority) {
+            1 => 'low',
+            2 => 'medium',
+            default => 'high',
+        };
     }
 
     /**
@@ -78,15 +63,5 @@ class Order
     {
         return $this->createdAt;
     }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-
 
 }
